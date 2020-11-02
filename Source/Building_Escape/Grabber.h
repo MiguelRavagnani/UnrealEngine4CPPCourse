@@ -17,9 +17,9 @@ public:
 	// Sets default values for this component's properties
 	UGrabber();
 
-protected:
-	// Called when the game starts
-	virtual void BeginPlay() override;
+public:	
+	// Called every frame
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;	
 
 private:
 	float Reach = 100.f;
@@ -28,8 +28,14 @@ private:
 	UInputComponent* InputComponent = nullptr;
 
 	void Grab();
+	void Release();
+	void FindPhysicsHandle();
+	void SetUpInputComponent();
 
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;	
+	//return the first actor within reach with a physics body
+	FHitResult GetFirstPhysicsBodyInReach() const;
+
+protected:
+	// Called when the game starts
+	virtual void BeginPlay() override;
 };
